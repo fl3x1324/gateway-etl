@@ -1,0 +1,10 @@
+# let's simulate some environment variables
+docker:
+  host:
+    ip: 10.200.10.1
+spring:
+  kafka:
+    bootstrap-servers: ${docker.host.ip}:9092
+    consumer:
+      group-id: gateway-event-consumers
+      auto-offset-reset: earliest
