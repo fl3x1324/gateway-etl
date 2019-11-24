@@ -3,13 +3,12 @@ package tech.minkov.gateway.config;
 import com.github.shyiko.mysql.binlog.BinaryLogClient;
 import com.github.shyiko.mysql.binlog.event.deserialization.EventDeserializer;
 import java.io.IOException;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import tech.minkov.gateway.service.EventProcessor;
+import tech.minkov.gateway.service.BinLogEventProcessor;
 
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
@@ -25,33 +24,35 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     private static final Logger LOG =
         LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
 
-    private final EventProcessor eventProcessor;
+    private final BinLogEventProcessor binLogEventProcessor;
 
     public CommandLineAppStartupRunner(
-        EventProcessor eventProcessor) {
-        this.eventProcessor = eventProcessor;
-    }
-
-    @PostConstruct
-    public  void initTopics(){
-
+        BinLogEventProcessor binLogEventProcessor) {
+        this.binLogEventProcessor = binLogEventProcessor;
     }
 
     @Override
     public void run(String... args) {
-        var client = new BinaryLogClient(dbHost, dbPort, dbSuperUser, dbSuperUserPassword);
+        var client = new BinaryLogClient(
+            dbHost,
+            dbPort,
+            dbSuperUser,
+            dbSuperUserPassword
+        );
         var eventDeserializer = new EventDeserializer();
         eventDeserializer.setCompatibilityMode(
             EventDeserializer.CompatibilityMode.DATE_AND_TIME_AS_LONG
         );
         client.setEventDeserializer(eventDeserializer);
-        client.registerEventListener(eventProcessor::publish);
+        client.registerEventListener(
+            binLogEventProcessor::publishToMessageBroker
+        );
         new Thread(() -> {
             try {
                 client.connect();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        },"binlog-client").start();
+        }, "binlog-client").start();
     }
 }

@@ -15,11 +15,13 @@ public class TopicsConfiguration {
 
     @Bean
     public NewTopic extWriteRows() {
-        return TopicBuilder.name("extWriteRow").partitions(1).replicas(1).build();
+        return TopicBuilder.name("extWriteRow").partitions(1).replicas(1)
+            .build();
     }
 
     @Bean
     public NewTopic extUpdateRows() {
-        return TopicBuilder.name("extUpdateRow").partitions(1).replicas(1).build();
+        return TopicBuilder.name("extUpdateRow").partitions(1).replicas(1)
+            .build();
     }
 }

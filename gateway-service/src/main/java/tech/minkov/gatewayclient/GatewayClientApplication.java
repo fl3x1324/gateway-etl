@@ -12,7 +12,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class GatewayClientApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(GatewayClientApplication.class);
+    private static final Logger logger = LoggerFactory
+        .getLogger(GatewayClientApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(GatewayClientApplication.class, args);
