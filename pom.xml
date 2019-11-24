@@ -9,8 +9,8 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>gateway</module>
-    <module>gateway-client</module>
+    <module>cdc-service</module>
+    <module>gateway-service</module>
   </modules>
   <name>gateway-etl</name>
   <!-- FIXME change it to the project's website -->
