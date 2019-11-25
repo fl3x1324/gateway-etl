@@ -5,19 +5,9 @@ docker:
 gatewayapp:
   dbhost: ${docker.host.ip}
   dbport: 3306
-  dbname: gateway_etl
   dbsuperuser: root
   dbsuperuserpassword: rootpassword
-  dbuser: gatewayapp
-  dbpassword: gatewayapppw
 # end environment variables
 spring:
-  datasource:
-    url: jdbc:mysql://${gatewayapp.dbhost}:${gatewayapp.dbport}/${gatewayapp.dbname}
-    username: ${gatewayapp.dbuser}
-    password: ${gatewayapp.dbpassword}
-  jpa:
-    hibernate:
-      ddl-auto: none
   kafka:
     bootstrap-servers: ${docker.host.ip}:9092

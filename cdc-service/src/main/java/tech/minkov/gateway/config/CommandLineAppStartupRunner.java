@@ -48,11 +48,26 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             binLogEventProcessor::publishToMessageBroker
         );
         new Thread(() -> {
-            try {
-                client.connect();
-            } catch (IOException e) {
-                e.printStackTrace();
+            var threshold = 0;
+            while (!binLogConnect(client) && threshold++ < 10) {
+                var logger = LoggerFactory.getLogger(BinaryLogClient.class);
+                logger.warn("Binary log connection failed! Retrying...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }, "binlog-client").start();
+    }
+
+    private boolean binLogConnect(BinaryLogClient client) {
+        try {
+            client.connect();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

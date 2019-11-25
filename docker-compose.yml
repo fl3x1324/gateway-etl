@@ -20,3 +20,25 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_BROKER_ID: 2
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "TRUE"
+  mysql:
+    image: atanasminkov/mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: gatewayapp
+      MYSQL_PASSWORD: gatewayapppw
+      MYSQL_DATABASE: gateway_etl
+  gateway-service:
+    depends_on:
+      - kafka
+    image: atanasminkov/gateway-service:0.0.1-SNAPSHOT
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  cdc-service:
+    depends_on:
+      - kafka
+    image: atanasminkov/gateway-cdc-service:0.0.1-SNAPSHOT
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      GATEWAYAPP_DBHOST: mysql

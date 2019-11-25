@@ -10,13 +10,13 @@ import org.springframework.kafka.annotation.KafkaListener;
 
 @EnableKafka
 @SpringBootApplication
-public class GatewayClientApplication {
+public class GatewayServiceApplication {
 
     private static final Logger logger = LoggerFactory
-        .getLogger(GatewayClientApplication.class);
+        .getLogger(GatewayServiceApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayClientApplication.class, args);
+        SpringApplication.run(GatewayServiceApplication.class, args);
     }
 
     @KafkaListener(topics = {"tableMap", "extWriteRow", "extUpdateRow"})
