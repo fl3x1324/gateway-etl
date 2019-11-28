@@ -16,7 +16,7 @@
   <description>Demo project for Spring Boot</description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>13</java.version>
     <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
   </properties>
 
@@ -74,6 +74,12 @@
           <buildArgs>
             <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
           </buildArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>--enable-preview</compilerArgs>
         </configuration>
       </plugin>
     </plugins>
