@@ -9,5 +9,4 @@ public class CDCServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CDCServiceApplication.class, args);
     }
-
 }

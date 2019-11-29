@@ -1,0 +1,5 @@
+${AnsiColor.MAGENTA}           _       _             ${AnsiColor.CYAN} _            _
+${AnsiColor.MAGENTA} _ __ ___ (_)_ __ | | _______   _${AnsiColor.CYAN}| |_ ___  ___| |__
+${AnsiColor.MAGENTA}| '_ ` _ \| | '_ \| |/ / _ \ \ / /${AnsiColor.CYAN} __/ _ \/ __| '_ \
+${AnsiColor.MAGENTA}| | | | | | | | | |   < (_) \ V /${AnsiColor.CYAN}| ||  __/ (__| | | |
+${AnsiColor.MAGENTA}|_| |_| |_|_|_| |_|_|\_\___/ \_${AnsiColor.YELLOW}(_)${AnsiColor.CYAN}\__\___|\___|_| |_|

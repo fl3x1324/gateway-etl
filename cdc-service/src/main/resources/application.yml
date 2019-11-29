@@ -11,3 +11,5 @@ gatewayapp:
 spring:
   kafka:
     bootstrap-servers: ${docker.host.ip}:9092
+  banner:
+    location: banner.txt

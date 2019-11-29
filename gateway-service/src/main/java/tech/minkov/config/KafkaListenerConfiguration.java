@@ -8,12 +8,13 @@ import org.springframework.kafka.annotation.KafkaListener;
 import tech.minkov.data.DataMutationEventInfo;
 
 @Configuration
-public class KafkaListenerConfig {
+public class KafkaListenerConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @KafkaListener(topics = {"record_insert", "record_update", "record_delete"})
     public void listen(ConsumerRecord<String, DataMutationEventInfo> cr) {
-        logger.info("{}", cr.value());
+        var dataChangeEvent = cr.value();
+        logger.info("{}", dataChangeEvent);
     }
 }
